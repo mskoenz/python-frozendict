@@ -5,15 +5,14 @@ import sys
 
 
 try:
-    from collections import OrderedDict
-except ImportError:  # python < 2.7
-    OrderedDict = NotImplemented
+    from collections.abc import Mapping
+except ImportError:  # python < 3.3
+    from collections import Mapping
+
+iteritems = getattr(dict, 'iteritems', dict.items)  # py2-3 compatibility
 
 
-iteritems = getattr(dict, 'iteritems', dict.items) # py2-3 compatibility
-
-
-class frozendict(collections.Mapping):
+class frozendict(Mapping):
     """
     An immutable wrapper around dictionaries that implements the complete :py:class:`collections.Mapping`
     interface. It can be used as a drop-in replacement for dictionaries where immutability is desired.
