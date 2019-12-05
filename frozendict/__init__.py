@@ -5,6 +5,11 @@ import sys
 
 
 try:
+    from collections import OrderedDict
+except ImportError:  # python < 2.7
+    OrderedDict = NotImplemented
+
+try:
     from collections.abc import Mapping
 except ImportError:  # python < 3.3
     from collections import Mapping
